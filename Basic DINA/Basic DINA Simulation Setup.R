@@ -6,12 +6,14 @@
 #                                                                       #
 #########################################################################
 
-#- Install and load the needed libraries
+# Install and load the needed libraries
 #------------------------------------------------------------------------
+# Install necessary packages
 install.packages('devtools')
 install.packages('dina')
 install.packages('coda')
 
+# Load the necessary pacakges
 library('devtools')
 install_github("drackham/dcms", ref="e5931eb6f2262bf72ccb9ee973ed167764dc9e31")
 install_github("drackham/dcmdata", ref="develop")
@@ -21,9 +23,10 @@ library('dina')
 library('coda')
 
 
-#- Load the simulated dataset and create the needed parameters
+# Load the simulated dataset and create the needed parameters
 #------------------------------------------------------------------------
-data <- get('R_DINA_SimpleQ_LN.1000')
+data <- get('R_DINA_SimpleQ_LN.1000') # This is a low-noise data set I simulated
+                                      # See the dcmdata R package for details
 
 # Load the Q-matrix
 q <- simpleQ()
@@ -41,5 +44,6 @@ for(j in 1:K){
 }
 attr.matrix <- as.matrix(attr.matrix)
 
+# Specify the burnin and chain length for the MCMC analysis
 burnin <- 500
 chainLength <- 5000
