@@ -14,7 +14,7 @@
 #                                                                       #
 #########################################################################
 # Change working directory
-setwd("~/Desktop")
+setwd("~/dev/intro-to-dcms/Basic DINA")
 
 # Source the helper file which does some of the heavy lifting
 source('Basic DINA Simulation Setup.R')
@@ -92,10 +92,10 @@ print(output,digits=3)
 #------------------------------------------------------------------------
 
 # Guessing parameters
-guess.rmse <- sqrt(output[,1] - data$g)^2
+guess.rmse <- sqrt((output[,1] - data$g)^2)
 mean(guess.rmse)
 
 
 # Slipping parameters
-slip.rmse <- (output[,3] - (1-data$s)^2)
+slip.rmse <- sqrt((output[,3] - (1-data$s))^2)
 mean(slip.rmse)
