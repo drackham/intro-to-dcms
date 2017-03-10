@@ -9,7 +9,7 @@
 # Install and load the needed libraries
 #------------------------------------------------------------------------
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(devtools, dina, ggmcmc, runjags, coda, fraction.subtraction.data)
+pacman::p_load(devtools, dina, ggmcmc, runjags, coda, CDM, ggplot2)
 
 # Load the dcms and dcmdata packages written by Dave Rackham
 install_github("drackham/dcms", ref="develop")
