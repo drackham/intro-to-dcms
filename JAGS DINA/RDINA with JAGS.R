@@ -13,24 +13,17 @@
 #           Session > Set Working Directory > To Source File Location   #
 #                                                                       #
 #########################################################################
+
+#------------------------------------------------------------------------
+# Set up the environment
+#------------------------------------------------------------------------
+
 # Change working directory
 setwd("~/dev/intro-to-dcms/JAGS DINA")
 
-# Source the helper file which does some of the heavy lifting
+# Source the helper files which do some of the heavy lifting
 source("../Helpers/extractCodaVariables.R")
-
-#------------------------------------------------------------------------
-# Load all of the needed packages
-#------------------------------------------------------------------------
-
-library('devtools')
-# install_github("drackham/dcms", ref="e5931eb6f2262bf72ccb9ee973ed167764dc9e31")
-library('dcms')
-library('coda')
-library('ggplot2')
-library('ggmcmc')
-library('parallel')
-library('runjags')
+source("../Helpers/DCM Packages.R")
 
 #------------------------------------------------------------------------
 # Set up all of the simulation parameters

@@ -6,23 +6,6 @@
 #                                                                       #
 #########################################################################
 
-# Install and load the needed libraries
-#------------------------------------------------------------------------
-# Install necessary packages
-install.packages('devtools')
-install.packages('dina')
-install.packages('coda')
-
-# Load the necessary pacakges
-library('devtools')
-install_github("drackham/dcms", ref="e5931eb6f2262bf72ccb9ee973ed167764dc9e31")
-install_github("drackham/dcmdata", ref="develop")
-library('dcms')
-library('dcmdata')
-library('dina')
-library('coda')
-
-
 # Load the simulated dataset and create the needed parameters
 #------------------------------------------------------------------------
 data <- get('R_DINA_SimpleQ_LN.1000') # This is a low-noise data set I simulated
