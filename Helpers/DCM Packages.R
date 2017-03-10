@@ -11,14 +11,8 @@
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(devtools, dina, ggmcmc, runjags, coda, fraction.subtraction.data)
 
-
-# Load the necessary pacakges
-# library('devtools')
+# Load the dcms and dcmdata packages written by Dave Rackham
 install_github("drackham/dcms", ref="develop")
 install_github("drackham/dcmdata", ref="develop")
 library('dcms')
 library('dcmdata')
-# library('dina')
-# library('ggmcmc')
-# library('runjags')
-# library('coda')
