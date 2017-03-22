@@ -1,0 +1,37 @@
+model
+{
+  for (i in 1:I) {
+    # examinee items
+    for (j in 1:J) {
+      y[i, j] ~ dbern(p[i, j])
+    }
+  }
+  
+  for (i in 1:I) {
+    alpha1[i] ~ dbern(p1)
+    alpha2[i] ~ dbern(p2)
+    alpha3[i] ~ dbern(p3)
+    alpha4[i] ~ dbern(p4)
+    
+    
+    
+    p[i, 1] <- 1/(1 + exp(-fHat[1] - dHat[1] * (alpha1[i])))
+
+    
+    
+  }
+  # hyperpriors for alpha1 and alpha2
+  
+  p1 ~ dbeta(1, 1)
+  p2 ~ dbeta(1, 1)
+  p3 ~ dbeta(1, 1)
+  p4 ~ dbeta(1, 1)
+  
+  
+  # priors for RDINA parameters d and f
+  for (j in 1:J) {
+    dHat[j] ~ dgamma(1, 0.03)
+    fHat[j] ~ dnorm(0, 0.05)
+  }
+  
+}
