@@ -89,10 +89,15 @@ ggmcmc(S, file="dHat.pdf", plot=c("traceplot", "density", "autocorrelation"), fa
 # f
 ggmcmc(S, file="fHat.pdf", plot=c("traceplot", "density", "autocorrelation"), family="fHat", param_page=4)
 
-# extract d and f means from posterior
+#------------------------------------------------------------------------
+# Extract means and and sds from posteriors
+#------------------------------------------------------------------------
+
+# extract d and f 
 dHat <- extractCodaVariables(x=codaSamples, params='dHat', exact=FALSE)
 fHat <- extractCodaVariables(x=codaSamples, params='fHat', exact=FALSE)
 
+# extract alphas
 alpha1 <- extractCodaVariables(x=codaSamples, params='alpha1', exact=FALSE)
 alpha2 <- extractCodaVariables(x=codaSamples, params='alpha2', exact=FALSE)
 alpha3 <- extractCodaVariables(x=codaSamples, params='alpha3', exact=FALSE)
@@ -102,6 +107,15 @@ alpha6 <- extractCodaVariables(x=codaSamples, params='alpha6', exact=FALSE)
 alpha7 <- extractCodaVariables(x=codaSamples, params='alpha7', exact=FALSE)
 alpha8 <- extractCodaVariables(x=codaSamples, params='alpha8', exact=FALSE)
 
+# combine alphas into a mastery vector
+alphas <- matrix(c(alpha1[,1], alpha2[,1], alpha3[,1], alpha4[,1], alpha5[,1], alpha6[,1], alpha7[,1], alpha8[,1]),
+                 nrow = nrow(alpha1), ncol = 8)
+
+
+#------------------------------------------------------------------------
+# Convert d and f into g and s
+#------------------------------------------------------------------------
+
 g <- lapply(fHat[,1], function(x) exp(x) / (1 + exp(x)))
 
 s <- list()
@@ -109,3 +123,31 @@ for (i in 1:nrow(fHat)){
   s[i] <- 1 - exp(fHat[i,1] + dHat[i, 1]) / (1 + exp(fHat[i,1] + dHat[i, 1]))
 }
 
+#------------------------------------------------------------------------
+# Analyze specific items
+#------------------------------------------------------------------------
+
+# Item analysis
+fHat1.all <- codaSamples[[1]][,1]
+fHat3.all <- codaSamples[[1]][,3]
+plot(density(fHat1.all))
+
+gHat1.all <- exp(fHat1.all) / (1 + exp(fHat1.all))
+gHat3.all <- exp(fHat3.all) / (1 + exp(fHat3.all))
+
+plot(density(gHat3.all))
+mean(gHat3.all)
+
+#------------------------------------------------------------------------
+# Analyze examinees who got most items wrong
+#------------------------------------------------------------------------
+
+# Get list of examinees who got most items wrong
+total <- rowSums(responses)
+responses.with.total <- data.frame(responses, total)
+most.wrong <- which(responses.with.total$total < 2)
+
+mastery.most.wrong <- alphas[most.wrong,]
+
+# Correlation between Alphas
+cor(alphas)
