@@ -47,7 +47,7 @@ data <- list("I" = I, "J" = J, "K" = K, "resp" = responses)
 model <- 'DTMR.jags'
 
 # Specify which parameters to save
-jags.params = c('fHat', 'dHat', 'alpha1', 'alpha2', 'alpha3', 'alpha4', 'alpha5', 'alpha6', 'alpha7', 'alpha8')
+jags.params = c('fHat', 'dHat', 'alpha1', 'alpha2', 'alpha3', 'alpha4')
 
 
 #------------------------------------------------------------------------
@@ -55,7 +55,7 @@ jags.params = c('fHat', 'dHat', 'alpha1', 'alpha2', 'alpha3', 'alpha4', 'alpha5'
 #------------------------------------------------------------------------
 posterior <- rDINAJagsSim(data, jagsModel = model, jags.params = jags.params,
                           maxCores = 1, adaptSteps = 100, burnInSteps = 500,
-                          numSavedSteps = 5000, thinSteps = 3)
+                          numSavedSteps = 5000, thinSteps = 1)
 
 #------------------------------------------------------------------------
 # Prep the posterior for analysis
@@ -103,7 +103,7 @@ alpha4 <- extractCodaVariables(x=codaSamples, params='alpha4', exact=FALSE)
 
 
 # combine alphas into a mastery vector
-alphas <- matrix(c(alpha1[,1], alpha2[,1], alpha3[,1], alpha4[,1], nrow = nrow(alpha1), ncol = 8))
+alphas <- matrix(c(alpha1[,1], alpha2[,1], alpha3[,1], alpha4[,1]), nrow = nrow(alpha1), ncol = ncol(alpha1))
 
 
 #------------------------------------------------------------------------
@@ -139,7 +139,7 @@ mean(gHat3.all)
 # Get list of examinees who got most items wrong
 total <- rowSums(responses)
 responses.with.total <- data.frame(responses, total)
-most.wrong <- which(responses.with.total$total < 2)
+most.wrong <- which(responses.with.total$total < 5)
 
 mastery.most.wrong <- alphas[most.wrong,]
 
