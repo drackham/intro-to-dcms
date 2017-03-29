@@ -150,4 +150,8 @@ most.wrong <- which(responses.with.total$total < 2)
 mastery.most.wrong <- alphas[most.wrong,]
 
 # Correlation between Alphas
-cor(alphas)
+round(cor(alphas),2)
+tmp <- round(cor(alphas),2)
+tmp2 <- tmp[tmp<1]
+mean(tmp2)
+median(cor(alphas))
